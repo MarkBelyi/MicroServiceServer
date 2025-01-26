@@ -1,0 +1,7 @@
+import os
+
+class Config:
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///auth.db'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY', '7458a35e63737b9632c16a171929b3ab31089cc22e001f7e8dd266a480bb196b')
+
