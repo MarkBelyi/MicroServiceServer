@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from pipeline.pipeline_service import PipelineService
+from old.pipeline.pipeline_service import PipelineService
 
 pipeline_blueprint = Blueprint("pipeline", __name__)
 pipeline_service = PipelineService()

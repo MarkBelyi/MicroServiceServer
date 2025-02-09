@@ -1,11 +1,4 @@
-from pipeline.upload_service_0.process import UploadService
-from pipeline.demand_forecasting_service_1.process import DemandForecastingService
-from pipeline.expiry_analysis_service_2.process import ExpiryAnalysisService
-from pipeline.procurement_optimization_service_3.process import ProcurementOptimizationService
-from pipeline.return_analysis_service_4.process import ReturnAnalysisService
-from pipeline.regional_analysis_service_5.process import RegionalAnalysisService
-from pipeline.discount_impact_service_6.process import DiscountImpactService
-from pipeline.output_service_7.process import OutputService
+
 
 class PipelineService:
     def __init__(self):
@@ -37,10 +30,10 @@ class PipelineService:
         # 5. Региональные особенности
         regional_analysis = self.regional_analysis_service.analyze(data, return_analysis)
 
-        # discount_impact_service_6. Влияние скидок и праздников
+        # 6. Влияние скидок и праздников
         discount_impact = self.discount_impact_service.analyze(data, regional_analysis)
 
-        # output_service_7. Генерация рекомендаций
-        recommendations = self.output_service.generate_output(data, discount_impact)
+        # 7. Генерация рекомендаций
+        final_output = self.output_service.generate_output(data, discount_impact)
 
-        return recommendations
+        return final_output

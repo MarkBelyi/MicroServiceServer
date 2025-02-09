@@ -1,5 +1,5 @@
 from flask import jsonify
-from models.user import db, User
+from instance.models.user import db, User
 from flask_jwt_extended import create_access_token
 from utils.hash import hash_password, verify_password
 
