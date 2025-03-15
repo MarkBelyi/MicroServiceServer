@@ -1,29 +1,32 @@
 from flask import Blueprint, request, jsonify
-from old.pipeline.pipeline_service import PipelineService
-from services.pipeline_service import run_pipeline_logic, counter
+from services.pipeline_service import PipelineService
 
-pipeline_blueprint = Blueprint("pipeline", __name__)
+pipeline_blueprint = Blueprint('pipeline', __name__)
 pipeline_service = PipelineService()
 
-@pipeline_blueprint.route('/execute_pipeline', methods=['POST'])
+@pipeline_blueprint.route('/test', methods=['GET'])
+def pipeline_endpoint():
+    # "synthetic_dataset_BETA_3.xlsx" передаётся как имя файла, но внутри UploadService данные захардкожены
+    pipeline_service = PipelineService()
+    result = pipeline_service.execute_pipeline("synthetic_dataset_BETA_3.xlsx")
+    return jsonify(result)
+
+
+@pipeline_blueprint.route('/execute', methods=['POST'])
 def execute_pipeline():
     if 'file' not in request.files:
-        return jsonify({'error': 'No file provided'}), 400
-
+        return jsonify({"error": "Файл не предоставлен"}), 400
     file = request.files['file']
-
     try:
-        recommendations = pipeline_service.execute_pipeline(file)
-        return jsonify({'recommendations': recommendations}), 200
+        pipeline_service = PipelineService()
+        result = pipeline_service.execute_pipeline(file)
+        return jsonify(result)
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        return jsonify({"error": str(e)}), 500
 
+@pipeline_blueprint.route('/execute-hardcoded', methods=['GET'])
+def execute_pipeline_hardcoded():
+    pipeline_service = PipelineService()
+    result = pipeline_service.execute_pipeline('synthetic_dataset_BETA_3.xlsx')
 
-@pipeline_blueprint.route('/check', methods=['GET'])
-def pipeline_endpoint():
-    results = run_pipeline_logic()
-    return jsonify({
-        "pipeline_steps": results,
-        "final_counter": counter
-    })
-
+    return jsonify(result)

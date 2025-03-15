@@ -2,16 +2,23 @@
 
 class OutputService:
     def generate_output(self, data, discount_impact):
-        # Генерация финального вывода на основе всех данных
-        output = {
-            "Product_Name": "Milk",
-            "Optimal_Purchase_Quantity": 500,
-            "Stock_Left": 50,
-            "Predicted_Demand": 450,
-            "Priority_Score": 0.9,
-            "Recommended_Discount": 10,
-            "Expected_Returns_Rate": 5,
-            "Region": "North",
-            "Holiday_Impact": True
-        }
-        return output
+        output_columns = [
+            'Product_Name',
+            'Recommended_Quantity',
+            'Stock_Left',
+            'Predicted_Demand',
+            'Priority_Score',
+            'Discount',
+            'Return_Rate',
+            'Region',
+            'Holiday',
+            'Final_Demand'
+        ]
+        final_df = data[output_columns].copy()
+        final_df = final_df.rename(columns={
+            'Recommended_Quantity': 'Optimal_Purchase_Quantity',
+            'Discount': 'Recommended_Discount',
+            'Return_Rate': 'Expected_Returns_Rate'
+        })
+        result = final_df.to_dict(orient='records')
+        return result
