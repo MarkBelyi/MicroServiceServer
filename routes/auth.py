@@ -1,5 +1,5 @@
-from flask import Blueprint, request, jsonify
-from services.auth_services import AuthService
+from flask import Blueprint, request
+from services.common.auth_services import AuthService
 from flask_jwt_extended import jwt_required
 
 auth_blueprint = Blueprint("auth", __name__)

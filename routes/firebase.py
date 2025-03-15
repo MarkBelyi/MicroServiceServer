@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from services.firebase_service import FirebaseService
+from services.common.firebase_service import FirebaseService
 
 firebase_blueprint = Blueprint("firebase", __name__)
 firebase_service = FirebaseService()
