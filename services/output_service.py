@@ -20,5 +20,6 @@ class OutputService:
             'Discount': 'Recommended_Discount',
             'Return_Rate': 'Expected_Returns_Rate'
         })
+        final_df.insert(0, 'id', range(1, len(final_df) + 1))
         result = final_df.to_dict(orient='records')
         return result

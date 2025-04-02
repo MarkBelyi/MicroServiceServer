@@ -4,14 +4,6 @@ from services.pipeline_service import PipelineService
 pipeline_blueprint = Blueprint('pipeline', __name__)
 pipeline_service = PipelineService()
 
-@pipeline_blueprint.route('/test', methods=['GET'])
-def pipeline_endpoint():
-    # "synthetic_dataset_BETA_3.xlsx" передаётся как имя файла, но внутри UploadService данные захардкожены
-    pipeline_service = PipelineService()
-    result = pipeline_service.execute_pipeline("synthetic_dataset_BETA_3.xlsx")
-    return jsonify(result)
-
-
 @pipeline_blueprint.route('/execute', methods=['POST'])
 def execute_pipeline():
     if 'file' not in request.files:
