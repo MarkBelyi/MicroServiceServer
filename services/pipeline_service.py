@@ -27,22 +27,22 @@ class PipelineService:
         # 1. Прогноз спроса
         data = self.forecasting_service.forecast(data)
 
-        # 2. Анализ срока годности
-        data = self.expiry_analysis_service.analyze(data, data)
-
-        # 3. Оптимизация закупок
-        data = self.procurement_optimization_service.optimize(data, data, data)
-
-        # 4. Анализ возвратов
-        data = self.return_analysis_service.analyze(data, data)
-
-        # 5. Региональные особенности
-        data = self.regional_analysis_service.analyze(data, data)
-
-        # 6. Влияние скидок и праздников
-        data = self.discount_impact_service.analyze(data, data)
-
-        # 7. Генерация рекомендаций
-        final_output = self.output_service.generate_output(data, data)
+        # # 2. Анализ срока годности
+        # data = self.expiry_analysis_service.analyze(data, data)
+        #
+        # # 3. Оптимизация закупок
+        # data = self.procurement_optimization_service.optimize(data, data, data)
+        #
+        # # 4. Анализ возвратов
+        # data = self.return_analysis_service.analyze(data, data)
+        #
+        # # 5. Региональные особенности
+        # data = self.regional_analysis_service.analyze(data, data)
+        #
+        # # 6. Влияние скидок и праздников
+        # data = self.discount_impact_service.analyze(data, data)
+        #
+        # # 7. Генерация рекомендаций
+        final_output = self.output_service.generate_output(data)
 
         return final_output

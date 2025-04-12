@@ -1,25 +1,42 @@
 # services/output_service.py
 
+# class OutputService:
+#     def generate_output(self, data, discount_impact):
+#         output_columns = [
+#             'Product_Name',
+#             'Recommended_Quantity',
+#             'Stock_Left',
+#             'Predicted_Demand',
+#             'Priority_Score',
+#             'Discount',
+#             'Return_Rate',
+#             'Region',
+#             'Holiday',
+#             'Final_Demand'
+#         ]
+#         final_df = data[output_columns].copy()
+#         final_df = final_df.rename(columns={
+#             'Recommended_Quantity': 'Optimal_Purchase_Quantity',
+#             'Discount': 'Recommended_Discount',
+#             'Return_Rate': 'Expected_Returns_Rate'
+#         })
+#         final_df.insert(0, 'id', range(1, len(final_df) + 1))
+#         result = final_df.to_dict(orient='records')
+#         return result
+
 class OutputService:
-    def generate_output(self, data, discount_impact):
-        output_columns = [
-            'Product_Name',
-            'Recommended_Quantity',
-            'Stock_Left',
-            'Predicted_Demand',
-            'Priority_Score',
-            'Discount',
-            'Return_Rate',
-            'Region',
-            'Holiday',
-            'Final_Demand'
-        ]
-        final_df = data[output_columns].copy()
-        final_df = final_df.rename(columns={
-            'Recommended_Quantity': 'Optimal_Purchase_Quantity',
-            'Discount': 'Recommended_Discount',
-            'Return_Rate': 'Expected_Returns_Rate'
-        })
+    def generate_output(self, data):
+        # Ожидаемые столбцы
+        expected_columns = ['Product_Name', 'Predicted_Purchase_Quantity']
+        # Отбираем те столбцы, которые есть в data
+        available_columns = [col for col in expected_columns if col in data.columns]
+
+        if len(available_columns) < len(expected_columns):
+            missing = set(expected_columns) - set(available_columns)
+            raise KeyError(f"Отсутствуют обязательные столбцы: {missing}")
+
+        final_df = data[available_columns].copy()
         final_df.insert(0, 'id', range(1, len(final_df) + 1))
         result = final_df.to_dict(orient='records')
         return result
+

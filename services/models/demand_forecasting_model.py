@@ -12,6 +12,7 @@ def build_demand_forecasting_model(input_shape):
     model.add(Dropout(0.3))
     model.add(BatchNormalization())
     model.add(Dense(16, activation='relu'))
-    model.add(Dense(1, activation='linear'))
     model.compile(optimizer='adam', loss='mse')
     return model
+
+
